@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+enum Stage {
+  NEW
+  BAKING
+  READY
+  DELIVERED
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  FAILED
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  customerName      String
+  phone             String
+  mode              String
+  address           String?
+  total             Int
+  status            OrderStatus @default(PENDING_PAYMENT)
+  stage             Stage       @default(NEW)
+  checkoutRequestId String?     @unique
+  mpesaReceipt      String?
+  failReason        String?
+  items             OrderItem[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  name      String
+  size      String
+  flavour   String
+  colour    String
+  message   String?
+  neededOn  String
+  notes     String?
+  qty       Int
+  unitPrice Int
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  name      String
+  desc      String
+  base      Int
+  bg        String   @default("#ffd9e2")
+  imageUrl  String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
