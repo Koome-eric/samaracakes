@@ -45,3 +45,12 @@
 .pform{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.pform h3{grid-column:1/-1}
 .brand{display:flex;align-items:center;gap:12px;font-size:1.3rem}.chip{background:#fff;border-radius:12px;padding:5px;display:grid}.chip img{width:34px;height:34px;object-fit:contain}
 .llogo{width:170px;margin:0 auto}
+/* ---------- Admin responsive ---------- */
+.tw .t{min-width:720px}.kpi b{font-size:clamp(1.2rem,4.6vw,1.9rem);word-break:break-word}
+@media(max-width:1100px){.main{padding:28px 24px}.grid2{grid-template-columns:1fr}}
+@media(max-width:900px){.side{position:sticky;top:0;z-index:20;height:auto}.side a,.side button{white-space:nowrap;width:auto}}
+@media(max-width:560px){
+  .main{padding:18px 14px}.top h1{font-size:1.6rem}.kpis{gap:10px}.kpi{padding:16px}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.tabs a{white-space:nowrap}
+  .search{width:100%}.search input{flex:1}.card{padding:16px}.login{padding:26px}
+}

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { ShopProvider, Customizer, CartDrawer, useShop, fmt } from "../components/Shop";
 import { CAKES } from "../lib/config";
 import { Img, Vid } from "../components/Media";
+import ChatWidget from "../components/ChatWidget";
 import * as Art from "../components/Art";
 
 const tiers = [
@@ -39,6 +40,7 @@ const decor = [["Balloon arches & garlands", "#c10373"], ["Flower walls", "#cfe6
 
 function Landing() {
   const { openCake, openCart, count } = useShop();
+  const [menu, setMenu] = useState(false);
   const [cakes, setCakes] = useState(CAKES);
   useEffect(() => { fetch("/api/products").then((r) => r.json()).then((d) => Array.isArray(d) && d.length && setCakes(d)).catch(() => {}); }, []);
   const ref = useRef(null);
@@ -50,8 +52,8 @@ function Landing() {
       <nav><div className="wrap">
         <a href="#" className="logo" aria-label="Samara Cakes home"><img src="/brand/mark.png" alt="" width="46" height="46" /><span>Samara <b>Cakes</b></span></a>
         <div className="links"><a href="#occasions">Occasions</a><a href="#cakes">Cakes</a><a href="#decor">Decor</a><a href="#how">How it works</a></div>
-        <div style={{ display: "flex", gap: 10 }}><button className="btn alt" onClick={openCart}>Cart ({count})</button><a href="#book" className="btn">Book a date</a></div>
-      </div></nav>
+        <div className="navact"><button className="btn alt cartbtn" onClick={openCart} aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8a3 3 0 0 1 6 0" /></svg><span className="cartlbl">Cart</span>{count > 0 && <b className="cnt">{count}</b>}</button><a href="#book" className="btn hide-sm">Book a date</a><button className="burger" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} aria-controls="mobile-menu" onClick={() => setMenu(!menu)}><span /><span /><span /></button></div>
+      </div>{menu && <div id="mobile-menu" className="mmenu" onClick={() => setMenu(false)}><a href="#occasions">Occasions</a><a href="#cakes">Cakes</a><a href="#decor">Decor</a><a href="#how">How it works</a><a href="#book" className="btn">Book a date</a></div>}</nav>
 
       <header className="hero"><div className="wrap">
         <div>
@@ -131,5 +133,5 @@ function Landing() {
 }
 
 export default function Page() {
-  return <ShopProvider><Landing /><Customizer /><CartDrawer /></ShopProvider>;
+  return <ShopProvider><Landing /><Customizer /><CartDrawer /><ChatWidget /></ShopProvider>;
 }
