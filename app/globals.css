@@ -162,7 +162,9 @@ nav .wrap{gap:10px;flex-wrap:nowrap}
 .mmenu{max-height:calc(100vh - 72px);max-height:calc(100dvh - 72px);overflow-y:auto;animation:dropin .25s ease-out}
 @keyframes dropin{from{opacity:0;transform:translateY(-8px)}}
 @media(max-width:1024px){.links{display:none}.burger{display:flex}.mmenu{display:grid}}
+@media(max-width:1024px){.navact .cartbtn,.navact .hide-sm{display:none}}
 @media(min-width:1025px){.mmenu{display:none}}
+@media(max-width:1024px){.mmenu-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.mmenu .mmenu-actions .btn{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;margin-top:0;min-height:48px;padding:10px 12px}}
 @media(max-width:600px){.mmenu{max-height:calc(100vh - 64px);max-height:calc(100dvh - 64px)}}
 @media(max-width:480px){
   nav .wrap{gap:6px}.logo{gap:8px;font-size:1.1rem}.logo img{height:34px}
@@ -187,3 +189,7 @@ nav{z-index:45}footer{padding-bottom:96px}
   .cw-head{padding:12px 14px}.cw-body{padding:14px}
 }
 @media(max-height:520px){.cw-bub,.cw-note{display:none}.cw-body{gap:8px;padding:12px}.cw-body textarea{min-height:0}.cw-panel{max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px)}}
+html,body{width:100%;max-width:100%;overflow-x:clip}
+.hero .wrap,.feat,.occ,.menu,.dgrid,.steps,form.book,.modal,.preview,.panel,.drawer{min-width:0}
+.modal{width:min(100%,880px)}
+@media(max-width:360px){.wrap{padding-left:12px;padding-right:12px}.mmenu-actions{grid-template-columns:1fr}.tile.ph{padding:16px}}

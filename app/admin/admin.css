@@ -54,3 +54,13 @@
   .tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.tabs a{white-space:nowrap}
   .search{width:100%}.search input{flex:1}.card{padding:16px}.login{padding:26px}
 }
+.adm{grid-template-columns:minmax(0,250px) minmax(0,1fr);width:100%;max-width:100%;min-width:0}
+.main,.top>div,.grid2,.card,.kpi,.tw,.pform,.search{min-width:0;max-width:100%}
+.grid2{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.pform>*{min-width:0}
+.adm input:not([type=color]),.adm select{max-width:100%;min-width:0}
+.search input{min-width:0}
+.login{width:min(400px,calc(100vw - 32px))}
+.login input{width:100%;min-width:0}
+@media(max-width:900px){.adm{grid-template-columns:minmax(0,1fr)}.main{width:100%}}
+@media(max-width:560px){.main{padding:16px 12px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi,.card{padding:14px}.pform{grid-template-columns:minmax(0,1fr)}.pform h3{grid-column:auto}.top{align-items:flex-start}.top h1{overflow-wrap:anywhere}}
