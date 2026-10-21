@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { WHATSAPP } from "../lib/config";
 import { useShop } from "./Shop";
@@ -17,6 +17,7 @@ export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
+  useEffect(() => { const k = (e) => e.key === "Escape" && setOpen(false); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, []);
   if (cartOpen || cake) return null;
   const text = `Hello Samara Cakes, ${msg.trim() || "I have a question."}${name.trim() ? `\n\nName: ${name.trim()}` : ""}`;
   const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;

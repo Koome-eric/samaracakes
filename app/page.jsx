@@ -2,7 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ShopProvider, Customizer, CartDrawer, useShop, fmt } from "../components/Shop";
-import { CAKES } from "../lib/config";
+import { CAKES, WHATSAPP } from "../lib/config";
 import { Img, Vid } from "../components/Media";
 import ChatWidget from "../components/ChatWidget";
 import * as Art from "../components/Art";
@@ -41,6 +41,15 @@ const decor = [["Balloon arches & garlands", "#c10373"], ["Flower walls", "#cfe6
 function Landing() {
   const { openCake, openCart, count } = useShop();
   const [menu, setMenu] = useState(false);
+  const [sent, setSent] = useState("");
+  function quote(e) {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(e.currentTarget));
+    const text = `Hello Samara Cakes, I would like a quote.\n\nName: ${f.name}\nEvent: ${f.type}\nDate: ${f.date}\nGuests: ${f.guests || "not sure yet"}${f.details?.trim() ? `\nDetails: ${f.details.trim()}` : ""}`;
+    const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
+    window.open(link, "_blank", "noopener");
+    setSent(link);
+  }
   const [cakes, setCakes] = useState(CAKES);
   useEffect(() => { fetch("/api/products").then((r) => r.json()).then((d) => Array.isArray(d) && d.length && setCakes(d)).catch(() => {}); }, []);
   const ref = useRef(null);
@@ -119,12 +128,14 @@ function Landing() {
       <section id="book" style={{ paddingTop: 0 }}><div className="wrap">
         <motion.h2 {...fade}>Book your date.</motion.h2>
         <p className="sub">Dates fill quickly. Send the details and get a quote within one day.</p>
-        <form className="book" onSubmit={(e) => e.preventDefault()}>
-          <input placeholder="Your name" aria-label="Your name" />
-          <input type="date" aria-label="Event date" />
-          <select aria-label="Event type"><option>Birthday</option><option>Wedding</option><option>Baby shower</option><option>Corporate</option></select>
-          <input type="number" placeholder="Guests" aria-label="Number of guests" />
-          <button className="btn">Request my quote</button>
+        <form className="book" onSubmit={quote}>
+          <input name="name" placeholder="Your name" aria-label="Your name" required autoComplete="name" />
+          <input name="date" type="date" aria-label="Event date" required min={new Date().toISOString().slice(0, 10)} />
+          <select name="type" aria-label="Event type"><option>Birthday</option><option>Wedding</option><option>Baby shower</option><option>Corporate</option></select>
+          <input name="guests" type="number" min="1" inputMode="numeric" placeholder="Guests" aria-label="Number of guests" />
+          <textarea name="details" rows={3} placeholder="Tell us about your event: theme, colours, venue, cake ideas" aria-label="Event details" />
+          <button className="btn">Request my quote on WhatsApp</button>
+          {sent && <p className="qnote">Opening WhatsApp with your request. If it did not open, <a href={sent} target="_blank" rel="noreferrer">tap here</a>.</p>}
         </form>
       </div></section>
       <footer><img src="/brand/logo.png" alt="Samara Cakes" width="150" style={{ display: "block", margin: "0 auto 12px" }} />© 2026 Samara Cakes. Baked and styled with care.</footer>

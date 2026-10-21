@@ -171,3 +171,19 @@ nav .wrap{gap:10px;flex-wrap:nowrap}
   .cnt{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;font-size:.7rem;padding:0 5px;border:2px solid #fff8fb}
 }
 @media(max-width:340px){.logo{font-size:1rem}.logo img{height:30px}.burger,.navact .cartbtn.btn{width:42px;height:42px;min-height:42px}}
+/* ---------- Quote form + chat widget responsive ---------- */
+form.book textarea{grid-column:1/-1;padding:16px 18px;border-radius:16px;border:2px solid transparent;font:inherit;background:#fff;resize:vertical;min-height:96px}
+form.book textarea:focus{border-color:var(--berry);outline:0}
+form.book input,form.book select{min-width:0;width:100%}
+.qnote{grid-column:1/-1;font-size:.95rem}.qnote a{text-decoration:underline;font-weight:700}
+nav{z-index:45}footer{padding-bottom:96px}
+.cw{right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom))}
+.cw-panel{display:flex;flex-direction:column;width:min(360px,calc(100vw - 28px));max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px)}
+.cw-head{flex:none}.cw-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.cw-body textarea,.cw-body input{font-size:16px;width:100%;min-width:0}.cw-chips button{min-height:36px}
+@media(max-width:480px){
+  .cw{right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom))}
+  .cw-panel{position:fixed;left:10px;right:10px;width:auto;bottom:calc(82px + env(safe-area-inset-bottom));max-height:calc(100vh - 110px);max-height:calc(100dvh - 110px)}
+  .cw-head{padding:12px 14px}.cw-body{padding:14px}
+}
+@media(max-height:520px){.cw-bub,.cw-note{display:none}.cw-body{gap:8px;padding:12px}.cw-body textarea{min-height:0}.cw-panel{max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px)}}
